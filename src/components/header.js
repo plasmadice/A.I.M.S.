@@ -1,6 +1,7 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import { Menu } from "semantic-ui-react"
 
 const Header = ({ siteTitle }) => (
   <header
@@ -27,6 +28,14 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
+      <Menu floated={"right"}>
+        <Menu.Item
+          name="Anime"
+          position="right"
+          onClick={() => console.log("clicked")}
+        />
+        <Menu.Item name="Not Anime" onClick={() => console.log("clicked")} />
+      </Menu>
     </div>
   </header>
 )
