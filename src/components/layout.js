@@ -9,9 +9,21 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import { Helmet } from "react-helmet"
+import { ApolloClient } from "apollo-boost"
+import { ApolloProvider } from "@apollo/react-hooks"
+import { InMemoryCache } from "apollo-cache-inmemory"
+import { HttpLink } from "apollo-link-http"
 
 import Header from "./header"
 import "./layout.css"
+
+const cache = new InMemoryCache()
+const client = new ApolloClient({
+  cache,
+  link: new HttpLink({
+    uri: "https://graphql.anilist.co",
+  }),
+})
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -25,7 +37,7 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <ApolloProvider client={client}>
       <Helmet>
         <link
           rel="stylesheet"
@@ -48,7 +60,7 @@ const Layout = ({ children }) => {
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
       </div>
-    </>
+    </ApolloProvider>
   )
 }
 

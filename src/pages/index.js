@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import Search from "../components/search"
-import Image from "../components/image"
+import Results from "../components/Results"
 import SEO from "../components/seo"
 import { useStaticQuery, graphql } from "gatsby"
 
@@ -18,18 +18,15 @@ const IndexPage = () => {
     }
   `)
 
-  const [description, setDescription] = useState(
-    data.site.siteMetadata.description
-  )
+  const [results, setResults] = useState([])
+
   return (
     <Layout>
-      <Search />
-      <SEO title="Home" />
       <h1>Beginning Layout</h1>
-      <p>{description}</p>
-      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-        <Image />
-      </div>
+      <SEO title="Home" />
+      <Search setResults={setResults} />
+      <p>{data.site.siteMetadata.description}</p>
+      <Results results={results} />
       <Link to="/page-2/">Go to page 2</Link>
     </Layout>
   )
