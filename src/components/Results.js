@@ -44,6 +44,7 @@ const Results = ({ results }) => {
                   : `${format} | ${episodes} episodes`}
               </Card.Meta>
               <Card.Description
+                //TODO: Fix description text to remove <br><br> and <br> <br>
                 style={{ maxHeight: "300px", overflow: "auto" }}
               >
                 {description}
