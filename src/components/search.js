@@ -3,20 +3,37 @@ import { Input } from "semantic-ui-react"
 import { useLazyQuery } from "@apollo/react-hooks"
 import { gql } from "apollo-boost"
 
-const GET_SHOW = gql`
-  query getMedia($search: String!) {
-    Media(search: $search, type: ANIME) {
-      id
-      idMal
-      genres
-      episodes
-      title {
-        english
-        userPreferred
-      }
-      coverImage {
-        large
-        color
+const GET_SHOWS = gql`
+  query getSeries($search: String!) {
+    Page(perPage: 10) {
+      media(search: $search, type: ANIME) {
+        id
+        idMal
+        genres
+        format
+        episodes
+        description
+        title {
+          english
+          userPreferred
+          romaji
+        }
+        coverImage {
+          large
+          color
+        }
+        averageScore
+        tags {
+          name
+        }
+        startDate {
+          month
+          year
+        }
+        endDate {
+          month
+          year
+        }
       }
     }
   }
@@ -25,9 +42,10 @@ const GET_SHOW = gql`
 const Search = ({ setResults }) => {
   const [formValue, setFormValue] = useState("")
   const [hold, setHold] = useState(0) // to hold timeout signature
-  const [getShow, { loading, data }] = useLazyQuery(GET_SHOW)
+  const [getShows, { loading, data, onError }] = useLazyQuery(GET_SHOWS)
 
-  if (data && data.Media) {
+  if (data) {
+    setResults(data)
     console.log(data)
   }
 
@@ -39,7 +57,7 @@ const Search = ({ setResults }) => {
 
       setHold(
         setTimeout(() => {
-          getShow({ variables: { search: formValue } })
+          getShows({ variables: { search: formValue } })
         }, 1500)
       )
     }
