@@ -58,7 +58,7 @@ const Search = ({ setResults }) => {
       setHold(
         setTimeout(() => {
           getShows({ variables: { search: formValue } })
-        }, 1500)
+        }, 100)
       )
     }
   }

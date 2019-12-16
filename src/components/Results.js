@@ -19,25 +19,13 @@ const Results = ({ results }) => {
           endDate,
           description,
         } = item
-        const header = title.userPreferred || title.english || title.romaji
-        return (
-          // <Card
-          //   image={coverImage.large}
-          //   header={header}
-          //   style={{ maxHeight: "600px" }}
-          //   meta={
-          //     episodes === null || format === "MOVIE"
-          //       ? format
-          //       : `${format} | ${episodes} episodes`
-          //   }
-          //   description={description}
-          //   key={id}
-          // />
+        const name = title.userPreferred || title.english || title.romaji
 
+        return (
           <Card key={id}>
-            <Image src={coverImage.large} />
+            <Image fluid src={coverImage.large} />
             <Card.Content>
-              <Card.Header>{header}</Card.Header>
+              <Card.Header>{name}</Card.Header>
               <Card.Meta>
                 {episodes === null || format === "MOVIE"
                   ? format
@@ -45,11 +33,12 @@ const Results = ({ results }) => {
               </Card.Meta>
               <Card.Description
                 //TODO: Fix description text to remove <br><br> and <br> <br>
-                style={{ maxHeight: "300px", overflow: "auto" }}
+                style={{ maxHeight: "200px", overflow: "auto" }}
               >
                 {description}
               </Card.Description>
             </Card.Content>
+            <Card.Content extra>{genres.join(", ")}</Card.Content>
           </Card>
         )
       })}
