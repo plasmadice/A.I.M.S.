@@ -25,7 +25,7 @@ const IndexPage = () => {
       <h1>Enter Information</h1>
       <SEO title="Home" />
       <Search setResults={setResults} />
-      {results !== null ? <Results results={results} /> : null}
+      <Results results={results} />
       <p>Anime IMDB Media Suggestions</p>
       <Link to="/page-2/">Go to page 2</Link>
     </Layout>

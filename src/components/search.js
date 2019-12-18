@@ -20,7 +20,6 @@ const GET_SHOWS = gql`
         }
         coverImage {
           large
-          color
         }
         averageScore
         tags {
@@ -34,6 +33,7 @@ const GET_SHOWS = gql`
           month
           year
         }
+        siteUrl
       }
     }
   }
@@ -42,7 +42,7 @@ const GET_SHOWS = gql`
 const Search = ({ setResults }) => {
   const [formValue, setFormValue] = useState("")
   const [hold, setHold] = useState(0) // to hold timeout signature
-  const [getShows, { loading, data, onError }] = useLazyQuery(GET_SHOWS)
+  const [getShows, { loading, data }] = useLazyQuery(GET_SHOWS)
 
   if (data) {
     setResults(data)
